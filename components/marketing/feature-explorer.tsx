@@ -1,0 +1,6 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { featureCatalog } from "@/lib/marketing";
+const groups = ["All features","AI & visibility","Time & reporting","Team management"];
+export function FeatureExplorer(){const [group,setGroup]=useState(0);const visible=featureCatalog.filter(f=>group===0||(group===1&&["daily-ai-summaries","screenshots","keyboard-activity"].includes(f.slug))||(group===2&&["time-tracking","reports","desktop-tracker"].includes(f.slug))||(group===3&&["projects","admin-dashboard","leave-management","employee-management"].includes(f.slug)));return <><div className="cm-feature-filters" aria-label="Filter features">{groups.map((g,i)=><button key={g} aria-pressed={group===i} onClick={()=>setGroup(i)}>{g}</button>)}</div><div className="cm-feature-grid" aria-live="polite">{visible.map(f=><Link className={`cm-feature-card ${f.slug==="daily-ai-summaries"?"cm-feature-star":""}`} key={f.slug} href={`/features/${f.slug}`}><div className="cm-feature-top"><span className="cm-icon-box" aria-hidden="true">{f.icon}</span>{f.slug==="daily-ai-summaries"?<span className="cm-tag">THE CLOCKMETRIC DIFFERENCE</span>:<span aria-hidden="true">↗</span>}</div><h3>{f.name}</h3><p>{f.description}</p><span className="cm-text-link">Explore feature →</span></Link>)}</div></>}

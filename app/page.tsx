@@ -1,645 +1,1142 @@
-import Image from "next/image";
+import type { ReactNode } from "react";
+import Link from "next/link";
 
-const loginUrl = "https://beamish-zabaione-4dcac2.netlify.app";
+import {
+  SiteHeader,
+  SiteFooter,
+} from "@/components/marketing/site-header";
 
-const features = [
-  {
-    title: "Time Tracking",
-    text: "Track employee work time against projects with a simple desktop timer.",
-    icon: "◷",
-    href: "/features/time-tracking",
-  },
-  {
-    title: "Screenshots",
-    text: "Capture screenshots during tracked time for better workday visibility.",
-    icon: "▣",
-    href: "/features/screenshots",
-  },
-  {
-    title: "Keyboard Activity",
-    text: "Review activity intervals alongside tracked working hours.",
-    icon: "⌨",
-    href: "/features/keyboard-activity",
-  },
-  {
-    title: "Daily AI Summaries",
-    text: "Turn screenshots and activity into a clear daily work overview.",
-    icon: "AI",
-    href: "/features/daily-ai-summaries",
-  },
-  {
-    title: "Projects",
-    text: "Organize employee time around the projects your team works on.",
-    icon: "◆",
-    href: "/features/projects",
-  },
-  {
-    title: "Reports",
-    text: "Review employee and project time through simple reports.",
-    icon: "▥",
-    href: "/features/reports",
-  },
+import { DashboardPreview } from "@/components/marketing/dashboard-preview";
+
+import { PricingCalculator } from "@/components/marketing/pricing-calculator";
+
+import {
+  AISummaryPreview,
+  TimerPreview,
+  ScreenshotPreview,
+  ReportPreview,
+  LeavePreview,
+} from "@/components/marketing/product-demo";
+
+import { FeatureExplorer } from "@/components/marketing/feature-explorer";
+
+import "./marketing.css";
+
+
+const faqs: [string, string][] = [
+  [
+    "What is ClockMetric?",
+    "ClockMetric is an employee time-tracking platform for remote teams. It brings project-based time tracking, screenshots, activity monitoring, timesheets, reports and team management into one workspace.",
+  ],
+  [
+    "How does the 14-day free trial work?",
+    "Create your ClockMetric account to start a 14-day free trial. Set up your workspace, add employees and projects, and explore the tracking and reporting workflow. The ongoing price is A$10 per active employee per month.",
+  ],
+  [
+    "How much will my team pay?",
+    "ClockMetric costs A$10 per active employee per month. For example, 10 active employees cost A$100 per month. Use the pricing calculator above to estimate the cost for your team.",
+  ],
+  [
+    "Do employees and admins use the same app?",
+    "Employees use the Windows desktop tracker to choose a project and start or stop their timer. Admins use the web dashboard to review team time, activity, screenshots and reports, and manage their workspace.",
+  ],
+  [
+    "When are screenshots and activity recorded?",
+    "Automatic/random screenshots and keyboard activity monitoring run during tracked work sessions. Activity is organised into intervals, alongside screenshots and recorded time, so it can be reviewed in context.",
+  ],
+  [
+    "What do AI work summaries show?",
+    "AI work summaries describe observable work from captured screenshots and activity. They help admins review a workday more quickly. Review them alongside the underlying records for a fuller picture.",
+  ],
+  [
+    "How does ClockMetric track employee activity?",
+    "ClockMetric tracks working time, keyboard and mouse activity, project usage, and captures periodic screenshots while an employee’s timer is running. This gives managers a clear view of how work time is being used.",
+  ],
+  [
+    "What are ClockMetric AI Work Summaries?",
+    "ClockMetric uses AI to turn captured work activity into simple, readable summaries. Admins can quickly understand what employees worked on without manually reviewing every screenshot.",
+  ],
 ];
+
+
+function Checks({
+  items,
+}: {
+  items: string[];
+}) {
+  return (
+    <ul className="cm-checks">
+      {items.map((item) => (
+        <li key={item}>
+          <span aria-hidden="true">✓</span>
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+
+function ArrowLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) {
+  return (
+    <Link href={href} className="cm-arrow-link">
+      {children}
+      <span aria-hidden="true"> →</span>
+    </Link>
+  );
+}
+
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-x-hidden bg-white text-slate-950">
-      {/* =====================================================
-          NAVBAR
-      ===================================================== */}
-      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-[62px] max-w-7xl items-center justify-between px-5 md:px-6">
-          <a href="/" className="flex items-center gap-2.5">
-            <Image
-              src="/app_icon.png"
-              alt="ClockMetric"
-              width={34}
-              height={34}
-              priority
-            />
+    <div className="cm-site">
+      <a
+        className="cm-skip"
+        href="#main-content"
+      >
+        Skip to content
+      </a>
 
-            <span className="text-lg font-extrabold tracking-[-0.03em]">
-              ClockMetric
-            </span>
-          </a>
+      <SiteHeader />
 
-          <nav className="hidden items-center gap-2 lg:flex">
-            <a
-              href="#platform"
-              className="px-3 py-2 text-xs font-semibold text-slate-700 transition hover:text-orange-600"
-            >
-              Platform
-            </a>
+      <main id="main-content">
 
-            <a
-              href="#features"
-              className="px-3 py-2 text-xs font-semibold text-slate-700 transition hover:text-orange-600"
-            >
-              Features
-            </a>
+        {/* HERO */}
+        <section className="cm-hero cm-new-hero">
+          <div className="cm-container">
 
-            <a
-              href="#teams"
-              className="px-3 py-2 text-xs font-semibold text-slate-700 transition hover:text-orange-600"
-            >
-              For Teams
-            </a>
+            <div className="cm-hero-layout">
 
-            <a
-              href="#pricing"
-              className="px-3 py-2 text-xs font-semibold text-slate-700 transition hover:text-orange-600"
-            >
-              Pricing
-            </a>
+              <div className="cm-hero-copy">
 
-            <a
-              href="#download"
-              className="px-3 py-2 text-xs font-semibold text-slate-700 transition hover:text-orange-600"
-            >
-              Download
-            </a>
-          </nav>
+                <Link
+                  href="/features/daily-ai-summaries"
+                  className="cm-pill"
+                >
+                  ✧ &nbsp; Meet your workday, summarised
+                  <span>→</span>
+                </Link>
 
-          <div className="flex items-center gap-2">
-            <a
-              href={loginUrl}
-              className="hidden px-3 py-2 text-xs font-bold text-slate-700 transition hover:text-orange-600 sm:inline-flex"
-            >
-              Log in
-            </a>
+                <h1>
+                  Track the time.
+                  <br />
+                  Understand
+                  <br />
+                  <span>the work.</span>
+                </h1>
 
-            <a
-              href="https://beamish-zabaione-4dcac2.netlify.app"
-              className="rounded-lg bg-orange-500 px-4 py-2.5 text-xs font-bold text-white shadow-[0_6px_18px_rgba(249,115,22,0.22)] transition hover:bg-orange-600"
-            >
-              Start free
-            </a>
-          </div>
-        </div>
-      </header>
+                <p className="cm-hero-description">
+                  Hours tell you how long.{" "}
+                  <strong>
+                    AI summaries help you see the story.
+                  </strong>{" "}
+                  Connect time, screenshots and activity in one clear
+                  view of your remote team&apos;s day.
+                </p>
 
-      {/* =====================================================
-          HERO
-      ===================================================== */}
-      <section className="relative overflow-hidden bg-white">
-        <div className="pointer-events-none absolute left-1/2 top-10 h-[400px] w-[900px] -translate-x-1/2 rounded-full bg-orange-100/40 blur-[110px]" />
+                <div className="cm-hero-actions">
+                  <Link
+                    href="/signup"
+                    className="cm-button"
+                  >
+                    Start your free trial →
+                  </Link>
 
-        <div className="relative mx-auto max-w-7xl px-5 pb-14 pt-11 text-center md:px-6">
-          <div className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-[11px] font-bold text-orange-600">
-            <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
-            Smarter team time tracking
-          </div>
+                  <a
+                    href="#product-preview"
+                    className="cm-button cm-button-secondary"
+                  >
+                    Explore the demo ↘
+                  </a>
+                </div>
 
-          <h1 className="mx-auto mt-5 max-w-[900px] text-[46px] font-extrabold leading-[1.02] tracking-[-0.05em] md:text-[58px]">
-            Track time. Understand work.
-            <span className="text-orange-500"> Grow teams.</span>
-          </h1>
-
-          <p className="mx-auto mt-5 max-w-[700px] text-[15px] leading-7 text-slate-600">
-            Track hours, projects, screenshots and activity while managers get
-            clear reports and Daily AI Summaries from one simple workspace.
-          </p>
-
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href="/signup"
-              className="inline-flex min-h-[46px] items-center justify-center rounded-lg bg-orange-500 px-7 text-sm font-bold text-white shadow-[0_9px_25px_rgba(249,115,22,0.25)] transition hover:-translate-y-0.5 hover:bg-orange-600"
-            >
-              Start free for 14 days
-            </a>
-
-            <a
-              href="/ClockMetricSetup.exe"
-              download
-              className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-6 text-sm font-bold text-slate-800 transition hover:bg-slate-50"
-            >
-              <span className="flex h-6 w-6 items-center justify-center rounded-md bg-slate-950 text-[11px] text-white">
-                ⊞
-              </span>
-
-              Download for Windows
-            </a>
-          </div>
-
-          <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[10px] text-slate-500">
-            <span>✓ No credit card required</span>
-            <span>✓ 14-day free trial</span>
-            <span>✓ A$5 per active employee/month</span>
-          </div>
-
-          {/* =================================================
-              YOUR REAL DASHBOARD PREVIEW
-          ================================================= */}
-          <div id="platform" className="relative mx-auto mt-9 max-w-[1120px]">
-            <div className="absolute left-1/2 top-10 h-[350px] w-[820px] -translate-x-1/2 rounded-full bg-orange-200/20 blur-3xl" />
-
-            <div className="relative overflow-hidden rounded-[22px] border border-slate-200 bg-[#f7f8fa] shadow-[0_30px_90px_rgba(15,23,42,0.14)]">
-              {/* WINDOW TOP */}
-              <div className="flex h-8 items-center justify-between border-b border-slate-200 bg-white px-3">
-                <div className="flex items-center gap-2">
-                  <Image
-                    src="/app_icon.png"
-                    alt="ClockMetric"
-                    width={17}
-                    height={17}
-                  />
-
-                  <span className="text-[8px] font-semibold text-slate-600">
-                    ClockMetric
+                <p className="cm-hero-note">
+                  <span>✓ 14-day free trial</span>
+                  <span>
+                    ✓ A$10 / active employee / month
                   </span>
+                </p>
+
+                <div className="cm-hero-proof">
+
+                  <span className="cm-overlap-avatars">
+                    <i>AM</i>
+                    <i>JC</i>
+                    <i>ST</i>
+                  </span>
+
+                  <span>
+                    Built for the people
+                    <br />
+                    <b>behind every project.</b>
+                  </span>
+
                 </div>
 
-                <div className="flex gap-4 text-[8px] text-slate-500">
-                  <span>—</span>
-                  <span>□</span>
-                  <span>×</span>
-                </div>
               </div>
 
-              <div className="grid min-h-[520px] grid-cols-[195px_1fr]">
-                {/* =========================================
-                    LEFT SIDEBAR
-                ========================================= */}
-                <aside className="relative border-r border-slate-200 bg-white px-4 py-5 text-left">
-                  <div className="mb-7 text-center">
-                    {/* YOUR REAL APP LOGO */}
-                    <div className="mx-auto flex h-[62px] w-[62px] items-center justify-center">
-                      <Image
-                        src="/app_icon.png"
-                        alt="ClockMetric app logo"
-                        width={62}
-                        height={62}
-                        className="object-contain"
+
+              <div
+                id="product-preview"
+                className="cm-hero-product"
+              >
+
+                <AISummaryPreview />
+
+                <div className="cm-hero-sticker">
+
+                  <span>✧</span>
+
+                  <div>
+                    <b>
+                      A day of detail. A moment of clarity.
+                    </b>
+
+                    <small>
+                      Time tracking meets AI work summaries.
+                    </small>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div className="cm-platform-strip">
+
+              <span>
+                ONE WORKSPACE. FROM FIRST TIMER TO FINAL
+                SUMMARY.
+              </span>
+
+              <div>
+
+                <Link href="/features/time-tracking">
+                  ◷ &nbsp; Track time
+                </Link>
+
+                <Link href="/features/screenshots">
+                  ▧ &nbsp; See the context
+                </Link>
+
+                <Link href="/features/daily-ai-summaries">
+                  ✧ &nbsp; Read the summary
+                </Link>
+
+                <Link href="/features/employee-management">
+                  ♙ &nbsp; Support your team
+                </Link>
+
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+
+        {/* AI SUMMARIES */}
+        <section
+          id="ai-summaries"
+          className="cm-section cm-ai-section"
+        >
+
+          <div className="cm-container cm-split">
+
+            <div className="cm-feature-copy">
+
+              <p className="cm-eyebrow">
+                01 / AI WORK SUMMARIES
+              </p>
+
+              <h2>
+                A full workday.
+                <br />
+                A clearer read.
+              </h2>
+
+              <p>
+                Turn captured work context into a simple,
+                readable overview. AI-generated summaries help
+                admins catch up on visible activity without
+                opening every screenshot.
+              </p>
+
+              <Checks
+                items={[
+                  "Plain-language summaries of observable work",
+                  "Time and work context in one view",
+                  "A starting point for your daily review",
+                ]}
+              />
+
+              <ArrowLink href="/features/daily-ai-summaries">
+                Meet your daily overview
+              </ArrowLink>
+
+            </div>
+
+            <AISummaryPreview />
+
+          </div>
+
+        </section>
+
+
+        {/* ABOUT */}
+        <section className="cm-section cm-about">
+
+          <div className="cm-container cm-about-grid">
+
+            <div>
+
+              <p className="cm-eyebrow">
+                WHAT IS CLOCKMETRIC?
+              </p>
+
+              <h2>
+                Remote work.
+                <br />
+                A shared understanding.
+              </h2>
+
+            </div>
+
+
+            <div>
+
+              <p className="cm-lead">
+                ClockMetric brings AI work summaries to employee
+                time tracking, helping remote teams understand
+                the work behind their recorded hours.
+              </p>
+
+              <p>
+                Employees track their work with a simple desktop
+                app. Admins get a connected view of hours,
+                screenshots, activity and reports in their
+                browser. Less piecing things together. More time
+                to move work forward.
+              </p>
+
+              <ArrowLink href="#how-it-works">
+                Meet your new everyday workspace
+              </ArrowLink>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* HOW IT WORKS */}
+        <section
+          id="how-it-works"
+          className="cm-section cm-warm"
+        >
+
+          <div className="cm-container">
+
+            <div className="cm-section-heading">
+
+              <p className="cm-eyebrow">
+                FROM FIRST CLICK TO FULL PICTURE
+              </p>
+
+              <h2>
+                A simple rhythm for your workday.
+              </h2>
+
+              <p>
+                Easy for employees to use. Clear for admins to
+                review.
+              </p>
+
+            </div>
+
+
+            <div className="cm-steps">
+
+              {[
+                [
+                  "01",
+                  "Set up your workspace",
+                  "Create your account, add your employees and organise the projects your team works on.",
+                ],
+                [
+                  "02",
+                  "Let the workday begin",
+                  "Employees choose a project and start the desktop timer. Time, screenshots and activity stay connected.",
+                ],
+                [
+                  "03",
+                  "See the bigger picture",
+                  "Open your web dashboard to review timesheets, weekly reports and AI-generated work summaries.",
+                ],
+              ].map(([n, title, text]) => (
+                <article key={n}>
+
+                  <span className="cm-step-number">
+                    {n}
+                  </span>
+
+                  <h3>{title}</h3>
+
+                  <p>{text}</p>
+
+                </article>
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* FEATURES */}
+        <section
+          id="features"
+          className="cm-section"
+        >
+
+          <div className="cm-container">
+
+            <div className="cm-heading-row">
+
+              <div>
+
+                <p className="cm-eyebrow">
+                  ONE CONNECTED PLATFORM
+                </p>
+
+                <h2>
+                  AI summaries first.
+                  <br />
+                  Everything connected.
+                </h2>
+
+              </div>
+
+
+              <p>
+                Time tracking, screenshots and activity provide
+                the context. AI work summaries help you make
+                sense of the day.
+              </p>
+
+            </div>
+
+            <FeatureExplorer />
+
+          </div>
+
+        </section>
+
+
+        {/* TIME TRACKING */}
+        <section
+          id="time-tracking"
+          className="cm-section cm-feature-section"
+        >
+
+          <div className="cm-container cm-split">
+
+            <div className="cm-feature-copy">
+
+              <p className="cm-eyebrow">
+                02 / TIME &amp; PROJECT TRACKING
+              </p>
+
+              <h2>
+                Start the timer.
+                <br />
+                Get into your flow.
+              </h2>
+
+              <p>
+                Give every work session a home. Employees choose
+                their project, start tracking and get on with
+                their day. Their hours stay connected to the
+                work that matters.
+              </p>
+
+              <Checks
+                items={[
+                  "Simple start and stop desktop timer",
+                  "Tracked time organised by project",
+                  "Personal timesheets for employees",
+                ]}
+              />
+
+              <ArrowLink href="/features/time-tracking">
+                Explore time tracking
+              </ArrowLink>
+
+            </div>
+
+            <TimerPreview />
+
+          </div>
+
+        </section>
+
+
+        {/* SCREENSHOTS */}
+        <section
+          id="screenshots-activity"
+          className="cm-section cm-feature-section"
+        >
+
+          <div className="cm-container cm-split cm-reverse">
+
+            <div className="cm-feature-copy">
+
+              <p className="cm-eyebrow">
+                03 / SCREENSHOTS &amp; ACTIVITY
+              </p>
+
+              <h2>
+                Context behind
+                <br />
+                the clock.
+              </h2>
+
+              <p>
+                Recorded hours tell part of the story.
+                Automatic/random screenshots and keyboard
+                activity intervals help you understand the work
+                happening during tracked sessions.
+              </p>
+
+              <Checks
+                items={[
+                  "Screenshots grouped for easier review",
+                  "Keyboard activity in 15-minute intervals",
+                  "Employee and admin views of tracked work",
+                ]}
+              />
+
+              <ArrowLink href="/features/screenshots">
+                Explore screenshots
+              </ArrowLink>
+
+              <ArrowLink href="/features/keyboard-activity">
+                See activity monitoring
+              </ArrowLink>
+
+            </div>
+
+            <ScreenshotPreview />
+
+          </div>
+
+        </section>
+
+
+        {/* ADMIN DASHBOARD */}
+        <section
+          id="admin-dashboard"
+          className="cm-section"
+        >
+
+          <div className="cm-container">
+
+            <div className="cm-section-heading">
+
+              <p className="cm-eyebrow">
+                04 / THE ADMIN DASHBOARD
+              </p>
+
+              <h2>
+                Your team. Your projects.
+                <br />
+                Your view of the day.
+              </h2>
+
+              <p>
+                A web dashboard that brings working status,
+                employee hours and project time together,
+                wherever you manage your team.
+              </p>
+
+            </div>
+
+
+            <div
+              id="platform"
+              className="cm-admin-preview"
+            >
+              <DashboardPreview />
+            </div>
+
+
+            <div className="cm-admin-cards">
+
+              <article>
+
+                <span className="cm-icon-box">
+                  ♙
+                </span>
+
+                <h3>
+                  Know who&apos;s working
+                </h3>
+
+                <p>
+                  Working and offline indicators put your
+                  team&apos;s current status within reach.
+                </p>
+
+                <div className="cm-person-status">
+
+                  <span className="cm-avatar">
+                    AM
+                  </span>
+
+                  <b>Alex Morgan</b>
+
+                  <span className="cm-status">
+                    Working
+                  </span>
+
+                </div>
+
+
+                <div className="cm-person-status">
+
+                  <span className="cm-avatar">
+                    ST
+                  </span>
+
+                  <b>Sam Taylor</b>
+
+                  <span className="cm-status cm-offline">
+                    Offline
+                  </span>
+
+                </div>
+
+              </article>
+
+
+              <article>
+
+                <span className="cm-icon-box">
+                  ▥
+                </span>
+
+                <h3>
+                  Understand the week
+                </h3>
+
+                <p>
+                  See employee totals and how recorded hours
+                  compare with the previous week.
+                </p>
+
+                <div className="cm-week-stats">
+
+                  <div>
+                    <small>This week</small>
+                    <strong>85h 20m</strong>
+                  </div>
+
+                  <div>
+                    <small>Previous week</small>
+                    <strong>80h 10m</strong>
+                  </div>
+
+                </div>
+
+                <span className="cm-example-label">
+                  Sample weekly totals
+                </span>
+
+              </article>
+
+
+              <article>
+
+                <span className="cm-icon-box">
+                  ▤
+                </span>
+
+                <h3>
+                  Keep projects connected
+                </h3>
+
+                <p>
+                  Review time across your projects and
+                  understand where the workday goes.
+                </p>
+
+                {[
+                  ["Website redesign", "65%"],
+                  ["Development", "85%"],
+                  ["Marketing", "45%"],
+                ].map(([name, width]) => (
+                  <div
+                    className="cm-project-progress"
+                    key={name}
+                  >
+
+                    <span>{name}</span>
+
+                    <div>
+                      <i
+                        style={{
+                          width,
+                        }}
                       />
                     </div>
 
-                    <p className="mt-3 text-[15px] font-extrabold text-slate-900">
-                      ClockMetric
-                    </p>
-
-                    <p className="mt-1 text-[9px] text-slate-400">
-                      ClockMetric Test Company
-                    </p>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-3 rounded-xl bg-orange-100 px-4 py-3 text-[10px] font-bold text-orange-600">
-                      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white">
-                        ▦
-                      </span>
-                      Dashboard
-                    </div>
-
-                    <div className="flex items-center gap-3 px-4 py-3 text-[10px] font-semibold text-slate-700">
-                      <span className="text-slate-400">◷</span>
-                      Timer
-                    </div>
-
-                    <div className="flex items-center gap-3 px-4 py-3 text-[10px] font-semibold text-slate-700">
-                      <span className="text-slate-400">▤</span>
-                      Timesheet
-                    </div>
-
-                    <div className="flex items-center gap-3 px-4 py-3 text-[10px] font-semibold text-slate-700">
-                      <span className="text-slate-400">▣</span>
-                      Screenshots
-                    </div>
-
-                    <div className="flex items-center gap-3 px-4 py-3 text-[10px] font-semibold text-slate-700">
-                      <span className="text-slate-400">⌨</span>
-                      Keyboard Activity
-                    </div>
-
-                    <div className="flex items-center gap-3 px-4 py-3 text-[10px] font-semibold text-slate-700">
-                      <span className="text-slate-400">◒</span>
-                      Leave
-                    </div>
-                  </div>
-
-                  <div className="absolute right-4 top-4 text-sm text-slate-400">
-                    ‹
-                  </div>
-                </aside>
-
-                {/* =========================================
-                    MAIN DASHBOARD
-                ========================================= */}
-                <div className="bg-[#f8f9fb] p-5">
-                  {/* WELCOME */}
-                  <div className="rounded-[18px] border border-orange-200 bg-[#fff8f1] px-6 py-5 text-left">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="text-[20px] font-extrabold text-slate-950">
-                          Good Evening, sita 👋
-                        </h3>
-
-                        <p className="mt-2 text-[11px] text-slate-500">
-                          ClockMetric Test Company
-                        </p>
-
-                        <div className="mt-4 flex gap-2">
-                          <span className="rounded-full border border-slate-200 bg-white px-3 py-2 text-[9px] font-medium text-slate-600">
-                            ▣ Sep 5, 2026
-                          </span>
-
-                          <span className="rounded-full border border-slate-200 bg-white px-3 py-2 text-[9px] font-medium text-slate-600">
-                            ◷ 8:07 PM
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="flex h-[58px] w-[58px] items-center justify-center rounded-full bg-orange-500 text-xl font-bold text-white">
-                        S
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* CURRENT TIMER */}
-                  <div className="mt-4 flex items-center justify-between rounded-[14px] border border-orange-300 bg-[#fffaf5] px-5 py-4">
-                    <div className="flex items-center gap-4 text-left">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 text-white">
-                        ■
-                      </div>
-
-                      <div>
-                        <p className="text-[14px] font-extrabold text-slate-900">
-                          AB
-                        </p>
-
-                        <p className="mt-1 text-[10px] text-slate-500">
-                          sita
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-5">
-                      <p className="font-mono text-[17px] font-extrabold text-orange-500">
-                        00:28:41
-                      </p>
-
-                      <button className="rounded-full bg-orange-500 px-5 py-2.5 text-[10px] font-bold text-white">
-                        Open Timer
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* WEEK TOTAL */}
-                  <div className="mt-4 overflow-hidden rounded-[14px] border border-slate-200 bg-white text-left">
-                    <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
-                      <p className="text-[11px] font-extrabold uppercase tracking-wide text-slate-500">
-                        This Week Total
-                      </p>
-
-                      <p className="text-[13px] font-extrabold text-slate-900">
-                        37:01:29
-                      </p>
-                    </div>
-
-                    {[
-                      ["TODAY", "04:29:59"],
-                      ["YESTERDAY", "07:26:31"],
-                      ["THU, SEP 3, 2026", "05:35:43"],
-                      ["WED, SEP 2, 2026", "06:26:52"],
-                      ["TUE, SEP 1, 2026", "06:12:36"],
-                    ].map(([day, total]) => (
-                      <div
-                        key={day}
-                        className="flex items-center justify-between border-b border-slate-200 bg-[#fffaf5] px-5 py-3.5 last:border-b-0"
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-lg font-bold text-orange-500">
-                            ›
-                          </span>
-
-                          <span className="text-slate-400">▣</span>
-
-                          <span className="text-[10px] font-semibold text-slate-800">
-                            {day}
-                          </span>
-                        </div>
-
-                        <span className="text-[10px] font-semibold text-slate-900">
-                          {total}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          FEATURES
-      ===================================================== */}
-      <section
-        id="features"
-        className="border-t border-slate-200 bg-slate-50"
-      >
-        <div className="mx-auto max-w-7xl px-5 py-14 md:px-6">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">
-              ClockMetric features
-            </p>
-
-            <h2 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] md:text-4xl">
-              Everything your team needs
-            </h2>
-
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-600">
-              One workspace for tracking time, reviewing work and managing your
-              team.
-            </p>
-          </div>
-          <div className="mt-9 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-  {features.map((feature, index) => (
-    <a
-      key={feature.title}
-      href={feature.href}
-      className={`group block cursor-pointer rounded-2xl border p-5 transition duration-200 hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg ${
-        index === 3
-          ? "border-orange-200 bg-orange-50"
-          : "border-slate-200 bg-white"
-      }`}
-    >
-      <div
-        className={`flex h-9 w-9 items-center justify-center rounded-lg text-xs font-bold ${
-          index === 3
-            ? "bg-orange-500 text-white"
-            : "bg-slate-950 text-white"
-        }`}
-      >
-        {feature.icon}
-      </div>
-
-      <h3 className="mt-4 text-base font-extrabold transition group-hover:text-orange-600">
-        {feature.title}
-      </h3>
-
-      <p className="mt-2 text-xs leading-5 text-slate-500">
-        {feature.text}
-      </p>
-
-      <p className="mt-4 text-xs font-bold text-orange-500">
-        See how it works →
-      </p>
-    </a>
-  ))}
-</div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          TEAMS
-      ===================================================== */}
-      <section id="teams" className="bg-white">
-        <div className="mx-auto max-w-7xl px-5 py-14 md:px-6">
-          <div className="text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">
-              For your whole team
-            </p>
-
-            <h2 className="mt-3 text-3xl font-extrabold">
-              The right view for every role
-            </h2>
-          </div>
-
-          <div className="mt-9 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-[9px] font-bold uppercase text-orange-500">
-                Employees
-              </p>
-
-              <h3 className="mt-3 text-lg font-extrabold">
-                Track work
-              </h3>
-
-              <p className="mt-2 text-xs leading-5 text-slate-500">
-                Start timers, choose projects and review personal tracked time.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-slate-950 p-5 text-white">
-              <p className="text-[9px] font-bold uppercase text-orange-400">
-                Managers
-              </p>
-
-              <h3 className="mt-3 text-lg font-extrabold">
-                Understand work
-              </h3>
-
-              <p className="mt-2 text-xs leading-5 text-slate-400">
-                Review time, screenshots, activity, reports and AI summaries.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-[9px] font-bold uppercase text-orange-500">
-                Admins
-              </p>
-
-              <h3 className="mt-3 text-lg font-extrabold">
-                Manage everything
-              </h3>
-
-              <p className="mt-2 text-xs leading-5 text-slate-500">
-                Manage employees, projects, workspace settings and billing.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          PRICING
-      ===================================================== */}
-      <section
-        id="pricing"
-        className="border-y border-slate-200 bg-slate-50"
-      >
-        <div className="mx-auto max-w-4xl px-5 py-14 md:px-6">
-          <div className="text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">
-              Simple pricing
-            </p>
-
-            <h2 className="mt-3 text-3xl font-extrabold">
-              Pay only for active employees
-            </h2>
-          </div>
-
-          <div className="mt-8 overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.06)] lg:grid lg:grid-cols-2">
-            <div className="p-7">
-              <span className="rounded-full bg-orange-50 px-3 py-1.5 text-[9px] font-bold uppercase text-orange-600">
-                ClockMetric Standard
-              </span>
-
-              <div className="mt-5 flex items-end gap-2">
-                <span className="text-5xl font-extrabold">
-                  A$5
-                </span>
-
-                <span className="pb-1 text-xs text-slate-500">
-                  / active employee / month
-                </span>
-              </div>
-
-              <p className="mt-4 text-xs leading-5 text-slate-600">
-                Start with a 14-day free trial.
-              </p>
-
-              <a
-                href="/signup"
-                className="mt-6 inline-flex rounded-lg bg-orange-500 px-6 py-3 text-xs font-bold text-white hover:bg-orange-600"
-              >
-                Start free for 14 days
-              </a>
-
-              <p className="mt-2 text-[9px] text-slate-400">
-                No credit card required
-              </p>
-            </div>
-
-            <div className="border-t border-slate-200 bg-slate-50 p-7 lg:border-l lg:border-t-0">
-              <p className="text-[9px] font-bold uppercase tracking-[0.16em] text-slate-400">
-                Everything included
-              </p>
-
-              <div className="mt-5 space-y-3">
-                {[
-                  "Desktop time tracking",
-                  "Project tracking",
-                  "Random screenshots",
-                  "Keyboard activity",
-                  "Daily & weekly timesheets",
-                  "Daily AI Summaries",
-                  "Reports",
-                  "Leave management",
-                  "Workspace management",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-center gap-2 text-xs font-medium text-slate-700"
-                  >
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-orange-100 text-[9px] font-bold text-orange-600">
-                      ✓
-                    </span>
-
-                    {item}
                   </div>
                 ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* =====================================================
-          DOWNLOAD CTA
-      ===================================================== */}
-      <section id="download" className="bg-white px-5 py-8 md:px-6">
-        <div className="mx-auto max-w-7xl rounded-[24px] bg-slate-950 px-7 py-9 text-white">
-          <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-400">
-                ClockMetric Desktop
+              </article>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* REPORTS */}
+        <section
+          id="timesheets-reports"
+          className="cm-section cm-warm"
+        >
+
+          <div className="cm-container cm-split">
+
+            <div className="cm-feature-copy">
+
+              <p className="cm-eyebrow">
+                05 / TIMESHEETS &amp; WEEKLY REPORTS
               </p>
 
-              <h2 className="mt-3 text-3xl font-extrabold">
-                Ready to start tracking?
+              <h2>
+                From daily details
+                <br />
+                to weekly perspective.
               </h2>
 
-              <p className="mt-3 text-xs text-slate-400">
-                Download ClockMetric for Windows and start tracking your
-                workday.
+              <p>
+                Bring your tracked hours into an organised view.
+                Review employee time, follow project totals and
+                make weekly check-ins more informed.
               </p>
+
+              <Checks
+                items={[
+                  "Daily and weekly tracked-time totals",
+                  "Time grouped by employee and project",
+                  "An accessible record of the working week",
+                ]}
+              />
+
+              <ArrowLink href="/features/reports">
+                Explore timesheets &amp; reports
+              </ArrowLink>
+
             </div>
 
-            <div className="flex gap-3">
-              <a
-                href="/signup"
-                className="rounded-lg bg-orange-500 px-6 py-3 text-xs font-bold text-white"
-              >
-                Start free
-              </a>
+            <ReportPreview />
 
-              <a
-                href="/ClockMetricSetup.exe"
-                download
-                className="rounded-lg border border-slate-700 px-6 py-3 text-xs font-bold"
-              >
-                ⊞ Download for Windows
-              </a>
-            </div>
           </div>
-        </div>
-      </section>
 
-      {/* =====================================================
-          FOOTER
-      ===================================================== */}
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-7 sm:flex-row sm:items-center sm:justify-between md:px-6">
-          <div className="flex items-center gap-2">
-            <Image
-              src="/app_icon.png"
-              alt="ClockMetric"
-              width={28}
-              height={28}
-            />
+        </section>
 
-            <span className="text-sm font-extrabold">
-              ClockMetric
+
+        {/* TEAM MANAGEMENT */}
+        <section
+          id="teams"
+          className="cm-section"
+        >
+
+          <div className="cm-container cm-team-management">
+
+            <div id="leave-management">
+
+              <p className="cm-eyebrow">
+                06 / LEAVE &amp; EMPLOYEE MANAGEMENT
+              </p>
+
+              <h2>
+                People first.
+                <br />
+                Everything in place.
+              </h2>
+
+              <p>
+                Keep employee management and leave alongside
+                your team&apos;s working time. One workspace
+                gives admins a more connected picture of the
+                people behind the projects.
+              </p>
+
+              <div className="cm-management-points">
+
+                <div>
+
+                  <h3>
+                    Leave management
+                  </h3>
+
+                  <p>
+                    Review employee leave in the same workspace
+                    you use to manage the working week.
+                  </p>
+
+                </div>
+
+
+                <div>
+
+                  <h3>
+                    Employee management
+                  </h3>
+
+                  <p>
+                    Organise your employees and keep their
+                    tracked work connected to your team.
+                  </p>
+
+                </div>
+
+              </div>
+
+              <ArrowLink href="/features/leave-management">
+                Explore leave management
+              </ArrowLink>
+
+              <ArrowLink href="/features/employee-management">
+                Meet your team workspace
+              </ArrowLink>
+
+            </div>
+
+            <LeavePreview />
+
+          </div>
+
+        </section>
+
+
+        {/* USE CASES */}
+        <section className="cm-section cm-use-cases">
+
+          <div className="cm-container">
+
+            <div className="cm-section-heading">
+
+              <p className="cm-eyebrow">
+                BUILT AROUND YOUR EVERYDAY WORK
+              </p>
+
+              <h2>
+                Different teams.
+                <br />
+                The same need for clarity.
+              </h2>
+
+              <p>
+                From product listings to product launches, keep
+                the workday connected.
+              </p>
+
+            </div>
+
+
+            <div className="cm-use-grid">
+
+              {[
+                [
+                  "01",
+                  "Ecommerce & virtual assistants",
+                  "Bring listing work, marketplace operations and customer support into one daily overview.",
+                  "daily-ai-summaries",
+                ],
+                [
+                  "02",
+                  "Agencies & client teams",
+                  "Organise recorded hours by project and make weekly client-work reviews easier.",
+                  "projects",
+                ],
+                [
+                  "03",
+                  "Remote & distributed teams",
+                  "Keep an eye on availability and understand the day across a team working apart.",
+                  "admin-dashboard",
+                ],
+              ].map(([n, title, copy, slug]) => (
+                <Link
+                  key={n}
+                  href={`/features/${slug}`}
+                >
+
+                  <span>{n} /</span>
+
+                  <h3>{title}</h3>
+
+                  <p>{copy}</p>
+
+                  <b>
+                    Explore your workflow ↗
+                  </b>
+
+                </Link>
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* PRICING */}
+        <section
+          id="pricing"
+          className="cm-section cm-pricing-section"
+        >
+
+          <div className="cm-container">
+
+            <div className="cm-section-heading">
+
+              <p className="cm-eyebrow">
+                SIMPLE, TEAM-FRIENDLY PRICING
+              </p>
+
+              <h2>
+                Big-picture clarity.
+                <br />
+                Small per-person price.
+              </h2>
+
+              <p>
+                One plan for a more connected workday.
+              </p>
+
+            </div>
+
+
+            <div className="cm-pricing-card">
+
+              <div className="cm-price-main">
+
+                <span className="cm-tag">
+                  CLOCKMETRIC
+                </span>
+
+                <div className="cm-price">
+
+                  A$10
+
+                  <span>
+                    per active employee
+                    <br />
+                    per month
+                  </span>
+
+                </div>
+
+                <p>
+                  Start with a 14-day free trial and explore
+                  ClockMetric with your team.
+                </p>
+
+                <Link
+                  href="/signup"
+                  className="cm-button"
+                >
+                  Start your 14-day free trial{" "}
+                  <span>→</span>
+                </Link>
+
+                <PricingCalculator />
+
+              </div>
+
+
+              <div className="cm-price-includes">
+
+                <h3>
+                  Your whole workspace, connected.
+                </h3>
+
+                <Checks
+                  items={[
+                    "Employee & project-based time tracking",
+                    "Windows desktop employee tracker",
+                    "Automatic/random screenshots",
+                    "Keyboard & activity monitoring",
+                    "Web admin dashboard & employee status",
+                    "Timesheets & weekly reports",
+                    "AI-generated work summaries",
+                    "Leave, employee & project management",
+                  ]}
+                />
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* DESKTOP */}
+        <section
+          id="download"
+          className="cm-section cm-desktop-section"
+        >
+
+          <div className="cm-container cm-desktop-content">
+
+            <span
+              className="cm-desktop-icon"
+              aria-hidden="true"
+            >
+              ▣
             </span>
+
+
+            <div>
+
+              <p className="cm-eyebrow">
+                DESKTOP FOR EMPLOYEES. WEB FOR ADMINS.
+              </p>
+
+              <h2>
+                Two ways in. One connected team.
+              </h2>
+
+              <p>
+                Employees track on Windows. Admins review and
+                manage in their browser.
+              </p>
+
+            </div>
+
+
+            <Link
+              href="/signup"
+              className="cm-button cm-button-secondary"
+            >
+              Set up your workspace →
+            </Link>
+
           </div>
 
-          <p className="text-[9px] text-slate-400">
-            © 2026 ClockMetric. All rights reserved.
-          </p>
-        </div>
-      </footer>
-    </main>
+        </section>
+
+
+        {/* FAQ */}
+        <section
+          id="faq"
+          className="cm-section"
+        >
+
+          <div className="cm-container cm-faq-layout">
+
+            <div>
+
+              <p className="cm-eyebrow">
+                GOOD QUESTIONS. CLEAR ANSWERS.
+              </p>
+
+              <h2>
+                A few things
+                <br />
+                you might wonder.
+              </h2>
+
+              <p>
+                Get to know ClockMetric before your first tracked
+                hour.
+              </p>
+
+            </div>
+
+
+            <div className="cm-faq-list">
+
+              {faqs.map(([q, a]) => (
+                <details key={q}>
+
+                  <summary>
+                    {q}
+                    <span aria-hidden="true">
+                      +
+                    </span>
+                  </summary>
+
+                  <p>{a}</p>
+
+                </details>
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* FINAL CTA */}
+        <section className="cm-final-cta">
+
+          <div className="cm-container">
+
+            <p className="cm-eyebrow">
+              YOUR NEXT CHAPTER OF TEAMWORK
+            </p>
+
+            <h2>
+              Your team&apos;s workday.
+              <br />
+              Clearly summarised.
+            </h2>
+
+            <p>
+              Bring time, activity and AI work summaries into one
+              connected workspace.
+            </p>
+
+            <Link
+              href="/signup"
+              className="cm-button"
+            >
+              Start your 14-day free trial{" "}
+              <span>→</span>
+            </Link>
+
+            <small>
+              A$10 per active employee/month after your trial.
+            </small>
+
+          </div>
+
+        </section>
+
+      </main>
+
+      <SiteFooter />
+
+    </div>
   );
 }
