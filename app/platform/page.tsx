@@ -1,0 +1,7 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { DetailLayout } from "@/components/marketing/detail-layout";
+import { DashboardPreview } from "@/components/marketing/dashboard-preview";
+import "../marketing.css";
+export const metadata: Metadata = {title: "Platform | ClockMetric", description: "A Windows tracker for employees and a web dashboard for managers."};
+export default function Page(){return <DetailLayout label="Platform" title="Your team’s hours, projects and reports in one place." description="Employees use the Windows desktop app to track their time. Admins use the web dashboard to manage the team and review recorded work."><section className="cm-section"><div className="cm-container"><DashboardPreview/><p className="cm-demo-disclaimer">Interactive preview with sample data.</p></div></section><section className="cm-section cm-warm"><div className="cm-container cm-benefit-grid">{[["For employees","Choose a project and start the timer. Stop it when you finish or take a break.","desktop-tracker"],["For managers","See who is working, check recorded hours and manage employees and projects.","admin-dashboard"],["For daily reviews","Review timesheets and screenshots. Add AI summaries with the A$13 plan.","reports"]].map(([t,d,s])=><article key={s}><h3>{t}</h3><p>{d}</p><Link className="cm-text-link" href={`/features/${s}`}>Learn more →</Link></article>)}</div></section></DetailLayout>}
