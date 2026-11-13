@@ -69,7 +69,7 @@ export default function SignupPage() {
             </span>
 
             <a
-              href="https://beamish-zabaione-4dcac2.netlify.app"
+              href="https://app.clockmetric.com"
               className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 font-bold text-slate-700 transition hover:bg-slate-50"
             >
               Log in
