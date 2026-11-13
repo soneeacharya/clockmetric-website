@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { featureCatalog } from "@/lib/marketing";
-export const loginUrl = "https://beamish-zabaione-4dcac2.netlify.app";
+export const loginUrl = "https://app.clockmetric.com";
 const links = [["Platform", "/platform"], ["Features", "/features"], ["AI summaries", "/ai-summaries"], ["How it works", "/how-it-works"], ["Pricing", "/pricing"]];
 export function SiteHeader() {
  const [open, setOpen] = useState(false);
