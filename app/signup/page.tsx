@@ -128,7 +128,7 @@ export default function SignupPage() {
 
     <div className="mt-6 space-y-3">
       <a
-        href="https://beamish-zabaione-4dcac2.netlify.app"
+        href="https://clockmetric.com/signup"
         className="block w-full rounded-xl bg-orange-500 px-5 py-3.5 text-sm font-extrabold text-white transition hover:bg-orange-600"
       >
         Open ClockMetric
