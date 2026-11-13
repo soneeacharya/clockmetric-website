@@ -99,7 +99,8 @@ export default function SignupPage() {
           <div className="mt-8 space-y-4 text-sm font-medium text-slate-700">
             <div>✓ 14-day free trial</div>
             <div>✓ No credit card required</div>
-            <div>✓ A$10 per active employee/month</div>
+            <div>✓ Without AI: A$10 per active employee/month</div>
+            <div>✓ With AI: A$13 per active employee/month</div>
             <div>✓ Desktop screenshot and activity tracking</div>
             <div>✓ Reports and Daily AI Summaries</div>
           </div>
