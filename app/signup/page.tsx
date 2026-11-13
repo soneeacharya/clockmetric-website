@@ -102,7 +102,7 @@ export default function SignupPage() {
             <div>✓ Without AI: A$10 per active employee/month</div>
             <div>✓ With AI: A$13 per active employee/month</div>
             <div>✓ Desktop screenshot and activity tracking</div>
-            <div>✓ Reports and Daily AI Summaries</div>
+            <div>✓ Reports on both plans; daily AI summaries on the With AI plan</div>
           </div>
         </div>
 
