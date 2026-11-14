@@ -109,44 +109,53 @@ export default function SignupPage() {
         {/* SIGNUP CARD */}
         {/* SIGNUP CARD */}
 {success ? (
-  <div className="rounded-[22px] border border-slate-200 bg-white p-8 text-center shadow-[0_16px_45px_rgba(15,23,42,0.08)]">
-    <Image
-      src="/app_icon.png"
-      alt="ClockMetric"
-      width={54}
-      height={54}
-      className="mx-auto"
-    />
 
-    <h2 className="mt-5 text-2xl font-extrabold">
-      Account created
-    </h2>
+<div className="rounded-[24px] border border-orange-200 bg-white p-8 text-center shadow-[0_16px_45px_rgba(15,23,42,0.08)]">
+  <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-orange-50">
+    <span className="text-4xl">✉️</span>
+  </div>
 
-    <p className="mt-3 text-sm leading-6 text-slate-600">
-      Please check your email and confirm your ClockMetric account.
+  <h2 className="mt-6 text-2xl font-extrabold text-slate-950">
+    Check your email!
+  </h2>
+
+  <p className="mt-3 text-sm leading-6 text-slate-600">
+    We've sent a confirmation link to{" "}
+    <strong className="text-slate-900">{email}</strong>.
+    Please verify your email to activate your ClockMetric workspace.
+  </p>
+
+  <div className="mt-6 rounded-xl border border-orange-100 bg-orange-50 p-4 text-left">
+    <p className="text-xs font-bold text-orange-700">
+      Didn't receive the email?
     </p>
-
-    <div className="mt-6 space-y-3">
-      <a
-        href="https://clockmetric.com/signup"
-        className="block w-full rounded-xl bg-orange-500 px-5 py-3.5 text-sm font-extrabold text-white transition hover:bg-orange-600"
-      >
-        Open ClockMetric
-      </a>
-
-      <a
-        href="/ClockMetricSetup.exe"
-        download
-        className="block w-full rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50"
-      >
-        Download Windows App
-      </a>
-    </div>
-
-    <p className="mt-5 text-[11px] text-slate-400">
-      Your 14-day free trial has started.
+    <p className="mt-1 text-xs leading-5 text-slate-600">
+      Check your spam or junk folder. Delivery can sometimes
+      take a few minutes.
     </p>
   </div>
+
+  <a
+    href="https://mail.google.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="mt-6 block w-full rounded-xl bg-orange-500 px-5 py-3.5 text-sm font-extrabold text-white transition hover:bg-orange-600"
+  >
+    Open Gmail
+  </a>
+
+  <a
+    href="https://app.clockmetric.com"
+    className="mt-3 block w-full rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50"
+  >
+    Already verified? Log in
+  </a>
+
+  <p className="mt-5 text-[11px] text-slate-400">
+    Your 14-day free trial begins when your workspace is activated.
+  </p>
+</div>
+
 ) : (
   <div className="rounded-[22px] border border-slate-200 bg-white p-6 shadow-[0_16px_45px_rgba(15,23,42,0.08)]">
     <div className="text-center">
